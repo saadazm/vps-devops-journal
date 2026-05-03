@@ -1,0 +1,21 @@
+services:
+  node-red:
+    image: nodered/node-red:latest
+    restart: unless-stopped
+    volumes:
+      - node_red_data:/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.node-red.rule=Host(`node-red.example.com`)
+      - traefik.http.routers.node-red.entrypoints=websecure
+      - traefik.http.routers.node-red.tls.certresolver=letsencrypt
+    networks:
+      - proxy
+
+volumes:
+  node_red_data:
+
+networks:
+  proxy:
+    external: true
+

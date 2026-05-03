@@ -1,0 +1,21 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    restart: unless-stopped
+    volumes:
+      - uptime_kuma_data:/app/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.uptime-kuma.rule=Host(`status.example.com`)
+      - traefik.http.routers.uptime-kuma.entrypoints=websecure
+      - traefik.http.routers.uptime-kuma.tls.certresolver=letsencrypt
+    networks:
+      - proxy
+
+volumes:
+  uptime_kuma_data:
+
+networks:
+  proxy:
+    external: true
+

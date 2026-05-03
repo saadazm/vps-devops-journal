@@ -1,0 +1,16 @@
+services:
+  portfolio-site:
+    image: nginx:alpine
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portfolio.rule=Host(`portfolio.example.com`)
+      - traefik.http.routers.portfolio.entrypoints=websecure
+      - traefik.http.routers.portfolio.tls.certresolver=letsencrypt
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
+

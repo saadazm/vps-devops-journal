@@ -2,6 +2,11 @@ services:
   portfolio-site:
     image: nginx:alpine
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
     labels:
       - traefik.enable=true
       - traefik.http.routers.portfolio.rule=Host(`portfolio.example.com`)

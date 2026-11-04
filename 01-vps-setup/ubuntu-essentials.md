@@ -24,3 +24,20 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 ```
 
+## Hostname
+
+```bash
+sudo hostnamectl set-hostname <name>
+```
+
+Add the same name to `/etc/hosts` against `127.0.1.1` if local resolution is needed.
+
+## Automatic Security Updates
+
+```bash
+sudo apt install -y unattended-upgrades
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+```
+
+Confirms unattended security patches apply without a manual `apt upgrade` each time.
+

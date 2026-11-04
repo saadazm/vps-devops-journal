@@ -2,12 +2,20 @@ services:
   mosquitto:
     image: eclipse-mosquitto:latest
     restart: unless-stopped
-    ports:
-      - "1883:1883"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
     volumes:
       - mosquitto_config:/mosquitto/config
       - mosquitto_data:/mosquitto/data
       - mosquitto_logs:/mosquitto/log
+    networks:
+      - mqtt-internal
+
+networks:
+  mqtt-internal:
 
 volumes:
   mosquitto_config:
